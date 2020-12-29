@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Leaderboard
+{% endblock %}
+
+{% block main %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Finished Habit</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      {% for username, finished_habit in rankings %}
+        <tr>
+          <td>{{ username }}</td>
+          <td>{{ finished_habit }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,97 @@
+nav .navbar-brand {
+  /* size for brand */
+  font-size: xx-large;
+}
+
+/* colors for brand */
+nav .navbar-brand .logo-text {
+  color: #f3b014;
+  font-weight: bolder;
+  letter-spacing: 1px;
+}
+
+main .form-control {
+  /* center form controls */
+  display: inline-block;
+
+  /* override Bootstrap's 100% width for form controls */
+  width: auto;
+}
+
+main {
+  /* scroll horizontally as needed */
+  overflow-x: auto;
+
+  /* center contents */
+  text-align: center;
+}
+
+main img {
+  /* constrain images on small screens */
+  max-width: 100%;
+}
+
+form .form-group .form-label {
+  width: 180px;
+}
+
+/* TOOLTIP */
+form .form-group .tooltip-icon {
+  position: relative;
+  display: inline-block;
+  color: #3d3838;
+  /* display: block; */
+  /* border-bottom: 1px dotted black; */
+}
+
+form .form-group .tooltip-icon .tooltiptext {
+  visibility: hidden;
+  width: 300px;
+  line-height: 1.6;
+  background-color: #333333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -20px;
+  left: 130%;
+  font-size: 16px;
+  padding: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+form .form-group .tooltip-icon .t1 {
+  top: -34px;
+  left: 23px;
+}
+
+form .form-group .tooltip-icon .t2 {
+  top: -47px;
+  left: 23px;
+}
+
+form .form-group .tooltip-icon .t3 {
+  top: -72px;
+  left: 23px;
+}
+
+form .form-group .tooltip-icon .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #333333 transparent transparent;
+}
+form .form-group .tooltip-icon:hover .tooltiptext {
+  visibility: visible;
+}
+
+.progress_chart {
+  height: 65vh;
+  width: 100%;
+}

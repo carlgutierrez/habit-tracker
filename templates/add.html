@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Habit
+{% endblock %}
+
+{% block script %}
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block main %}
+    <form action="/add" method="post">
+        <div class="form-group">
+            <!-- <select class="form-control" name="symbol">
+                <option disabled selected value="">Symbol</option>
+                {% for stock in stocks %}
+                    <option value="{{ stock.symbol }}">{{ stock.symbol }}</option>
+                {% endfor %}
+            </select> -->
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="habit" placeholder="Habit" type="text" required>
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" class="form-control form-label" min="1" max="5" name="priority" placeholder="Priority" type="number" required>
+            <i class="fa fa-question-circle tooltip-icon"><span class="tooltiptext t1">We will display on top the highest priorities so you can always see it, 1 is lowest 5 is highest.</span></i>
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" class="form-control form-label" min="18" max="254" name="targer_days" placeholder="Targer Days" type="number" required>
+            <i class="fa fa-question-circle tooltip-icon"><span class="tooltiptext t2">It can take anywhere from 18 to 254 days for a person to form a new habit and an average of 66 days for a new behavior to become automatic.</span></i>
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" class="form-control form-label" min="0"  max="3" name="maximum_day_off" placeholder="Maximum Day Off" type="number" required>
+            <i class="fa fa-question-circle tooltip-icon"><span class="tooltiptext t3">In creating a new habit without breaks leads to stress and exhaustion, but you can input 0 day off if your mentally strong, highest day off is 3 (Your progression will reset to 0 if you take a day off greater than what you input)</span></i>
+        </div>
+        <input type="hidden" name="hidden_total_habit" value="{{ total_habit[2:3] }}">
+        <button class="btn btn-primary" type="submit">Add</button>
+    </form>
+{% endblock %}

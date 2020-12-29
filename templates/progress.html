@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Progress
+{% endblock %}
+
+{% block script %}
+  <!-- KoolChart License FREE TRIAL -->
+  <script src="https://www.koolchart.com/demo/LicenseKey/KoolChartLicense.js"></script>
+  <!-- <script src="{{ url_for('static', filename='KoolChartLicense.js') }}"></script> -->
+  <script src="https://www.koolchart.com/demo/KoolChart/JS/KoolChart.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='KoolChart.css') }}">
+{% endblock %}
+
+{% block main %}
+  <div id="chartHolder" class="progress_chart"><div>
+  <script>
+    var chartVars = "KoolOnLoadCallFunction=chartReadyHandler";
+
+    KoolChart.create("chart1", "chartHolder", chartVars, "100%", "100%");
+
+    function chartReadyHandler(id) {
+      document.getElementById(id).setLayout(layoutStr);
+      document.getElementById(id).setData(chartData);
+    }
+
+    var layoutStr =
+      '<KoolChart backgroundColor="#ffffff"  borderStyle="none">'
+      +'<Options>'
+        +'<Caption text="Y-axis = Days, X-axis = Habit" fontFamily="Malgun Gothic"/>'
+      +'</Options>'
+      +'<NumberFormatter id="numfmt" useThousandsSeparator="true"/>' 
+      +'<Combination2DChart showDataTips="true">'
+        +'<horizontalAxis>'
+        +'<CategoryAxis categoryField="Habit" padding="1"/>' 
+        +'</horizontalAxis>'
+        +'<verticalAxis>'
+        +'<LinearAxis  formatter="{numfmt}" maximum="{{ max_target_days }}" interval="10"/>'
+        +'</verticalAxis>'
+        +'<series>'
+        +'<VTarget2DResultSeries id="result" columnWidthRatio="0.54" labelPosition="inside" yField="Result" displayName="Actual Days" color="#ffffff" htmlJsFunction="userElementFunc">'
+          +'<showDataEffect>'
+          +'<SeriesInterpolate/>' 
+          +'</showDataEffect>'
+        +'</VTarget2DResultSeries>'
+        +'<VTarget2DGoalSeries id="goal" columnWidthRatio="0.54" labelPosition="outside" yField="Goal" displayName="Target Days" color="#f3b014" htmlJsFunction="userElementFunc">'
+          +'<showDataEffect>'
+          +'<SeriesInterpolate/>' 
+          +'</showDataEffect>'
+          +'<fill>'
+          +'<SolidColor color="#f3b014"/>'
+          +'</fill>'
+        +'</VTarget2DGoalSeries>'
+        +'</series>'
+      +'</Combination2DChart>'
+      +'</KoolChart>';
+
+    var chartData =
+      [
+        {% for habit, actual_days, target_days in habits %}
+          {"Habit":"{{ habit }}","Goal":'{{ target_days }}',"Result":'{{ actual_days }}'},
+        {% endfor %}
+      ];
+  </script>
+{% endblock %}

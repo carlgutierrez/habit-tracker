@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Habit</th>
+            <th>Actual Days</th>
+            <th>Target Days</th>
+            <th>Previous check in</th>
+            <th>Maximum Day Off</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+      {% for habit, actual_days, target_days, previous_check_in, maximum_day_off, id, date_created in habits %}
+        <tr>
+          <td>{{ habit }}</td>
+          <td>{{ actual_days }}</td>
+          <td>{{ target_days }}</td>
+          <td>{{ previous_check_in }}</td>
+          <td>{{ maximum_day_off }}</td>
+          <!-- UPDATE -->
+          <td>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateModal{{ id }}">
+              ✔
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="updateModal{{ id }}" tabindex="-1" role="dialog" aria-labelledby="updateModalCenterTitle{{ id }}" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLongTitle{{ id }}">Update Progression</h5>
+                    <button type="button" class="close btn-danger" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Did you perform this habit today?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <form action="/update" method="POST">
+                      <input type="hidden" name="hidden_date_created" value="{{ date_created }}">
+                      <input type="hidden" name="hidden_actual_days" value="{{ actual_days }}">
+                      <input type="hidden" name="hidden_target_days" value="{{ target_days }}">
+                      <button type="submit" class="btn btn-success" name="update_button" value="{{ previous_check_in }}">Yes</a></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <!-- DELETE -->
+          <td>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#deleteModal{{ id }}">
+              ❌
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal{{ id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle{{ id }}" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLongTitle{{ id }}">Delete Habit</h5>
+                    <button type="button" class="close btn-danger" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure to delete habit in progress?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <form action="/delete" method="POST">
+                      <input type="hidden" name="hidden_total_habit" value="{{ total_habit }}">
+                      <button type="submit" class="btn btn-success" name="delete_button" value="{{ date_created }}">Yes</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
